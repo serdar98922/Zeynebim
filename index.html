@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#000000" />
   <title>Zeynebim'e Doğum Günü</title>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
   <style>
@@ -11,14 +10,14 @@
       margin: 0;
       padding: 0;
       font-family: 'Georgia', serif;
-      color: white;
-      text-align: center;
       background-image: url('background.jpg');
       background-repeat: no-repeat;
       background-position: center center;
-      background-size: contain;
+      background-size: cover;
       background-attachment: fixed;
-      background-color: black;
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
     }
 
     .overlay {
@@ -32,8 +31,8 @@
 
     h1 {
       font-size: 2.8rem;
-      margin-bottom: 1rem;
       font-family: 'Dancing Script', cursive;
+      margin-bottom: 1rem;
     }
 
     .message {
@@ -66,22 +65,39 @@
 
     .butterfly {
       position: fixed;
-      width: 25px;
-      height: 25px;
+      width: 30px;
+      height: 30px;
       pointer-events: none;
-      z-index: 20;
+      z-index: 100;
       animation: butterfly-fly 4s ease-out forwards;
-      transition: opacity 1s ease-out;
+      transition: opacity 0.5s ease-out;
     }
 
     @keyframes butterfly-fly {
       0% {
         opacity: 1;
-        transform: translate(0, 0) scale(1);
+        transform: scale(1);
       }
       100% {
         opacity: 0;
-        transform: translate(calc(-50px + 100px * var(--x)), calc(-150px + -100px * var(--y))) scale(0.6) rotate(360deg);
+        transform: translateY(-200px) rotate(360deg) scale(0.5);
+      }
+    }
+
+    .rose {
+      position: fixed;
+      top: -50px;
+      width: 30px;
+      height: 30px;
+      pointer-events: none;
+      z-index: 10;
+      animation: fall 5s linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
       }
     }
 
@@ -96,48 +112,36 @@
       height: 60px;
       border: none;
       border-radius: 50%;
-      background: #ff69b4;
+      background: #ff4d6d;
       color: white;
       font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      margin-bottom: 1rem;
+      margin: 1rem auto;
       box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      transition: background-color 0.3s ease;
+    }
+
+    #musicButton:hover {
+      background-color: #e03e56;
     }
 
     #confettiButton {
-      background: #ffa5d8;
+      background: #f06292;
       border: none;
       color: white;
       padding: 1rem 2rem;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       border-radius: 50px;
       cursor: pointer;
-      margin-bottom: 1rem;
+      margin-top: 1rem;
+      transition: background-color 0.3s ease;
     }
 
-    .flower {
-      position: fixed;
-      top: -50px;
-      width: 30px;
-      height: 30px;
-      z-index: 1;
-      animation: fall 5s linear forwards;
-      pointer-events: none;
-    }
-
-    @keyframes fall {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
-    audio {
-      display: none;
+    #confettiButton:hover {
+      background-color: #ec407a;
     }
   </style>
 </head>
@@ -158,18 +162,21 @@ Renklerin kadar güzelsin, gülüşün kadar huzurlu. 🌸
       <img src="3.jpg" alt="Zeynep Foto 3" />
     </div>
 
-    <button id="confettiButton">🌷 Kalbim seninle 💖</button><br>
-    <button id="musicButton">🎵</button>
-    <audio id="music" autoplay loop>
-      <source src="music.mp3" type="audio/mpeg">
-    </audio>
+    <button id="musicButton">❤️</button>
+    <button id="confettiButton">🌷 Kalbim seninle</button>
   </div>
 
-  <!-- Countdown -->
+  <audio id="music" playsinline>
+    <source src="music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
   <script>
+    // Geri sayım
     function updateCountdown() {
       const now = new Date();
-      let target = new Date(now.getFullYear(), 10, 24); // 24 Kasım
+      let target = new Date(now.getFullYear(), 10, 24);
       if (now > target) target = new Date(now.getFullYear() + 1, 10, 24);
       const diff = target - now;
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -181,67 +188,52 @@ Renklerin kadar güzelsin, gülüşün kadar huzurlu. 🌸
     }
     updateCountdown();
     setInterval(updateCountdown, 1000);
-  </script>
 
-  <!-- Butterfly Effect -->
-  <script>
-    document.querySelectorAll('.gallery img').forEach(img => {
-      img.addEventListener('click', () => {
+    // Müzik
+    document.getElementById("musicButton").addEventListener("click", () => {
+      const music = document.getElementById("music");
+      if (music.paused) {
+        music.play();
+        document.getElementById("musicButton").textContent = "🔇";
+      } else {
+        music.pause();
+        document.getElementById("musicButton").textContent = "❤️";
+      }
+    });
+
+    // Konfeti
+    document.getElementById("confettiButton").addEventListener("click", () => {
+      confetti({ particleCount: 150, spread: 120, origin: { y: 0.6 } });
+    });
+
+    // Kelebek efekti
+    document.querySelectorAll(".gallery img").forEach((img) => {
+      img.addEventListener("click", () => {
         const rect = img.getBoundingClientRect();
         for (let i = 0; i < 10; i++) {
-          const butterfly = document.createElement('img');
-          butterfly.src = 'butterfly.png';
-          butterfly.className = 'butterfly';
-          const offsetX = rect.left + (Math.random() * rect.width);
-          const offsetY = rect.top + (Math.random() * rect.height);
-          butterfly.style.left = `${offsetX}px`;
-          butterfly.style.top = `${offsetY}px`;
-          const x = Math.random();
-          const y = Math.random();
-          butterfly.style.setProperty('--x', x);
-          butterfly.style.setProperty('--y', y);
+          const butterfly = document.createElement("img");
+          butterfly.src = "butterfly.png";
+          butterfly.className = "butterfly";
+          butterfly.style.left = `${rect.left + rect.width * Math.random()}px`;
+          butterfly.style.top = `${rect.top + rect.height * Math.random()}px`;
+          butterfly.style.setProperty("--x", Math.random());
+          butterfly.style.setProperty("--y", Math.random());
           document.body.appendChild(butterfly);
           setTimeout(() => butterfly.remove(), 4000);
         }
       });
     });
-  </script>
 
-  <!-- Confetti -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-  <script>
-    document.getElementById('confettiButton').addEventListener('click', () => {
-      confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } });
-    });
-  </script>
-
-  <!-- Music Control -->
-  <script>
-    const music = document.getElementById('music');
-    const musicBtn = document.getElementById('musicButton');
-    musicBtn.addEventListener('click', () => {
-      if (music.paused) {
-        music.play();
-        musicBtn.textContent = '🔇';
-      } else {
-        music.pause();
-        musicBtn.textContent = '🎵';
-      }
-    });
-  </script>
-
-  <!-- Flower Rain -->
-  <script>
-    function createFlower() {
-      const flower = document.createElement('img');
-      flower.src = 'rose.png';
-      flower.className = 'flower';
-      flower.style.left = Math.random() * 100 + 'vw';
-      document.body.appendChild(flower);
-      setTimeout(() => flower.remove(), 5000);
+    // Gül yaprakları
+    function createRose() {
+      const rose = document.createElement("img");
+      rose.src = "rose.png";
+      rose.className = "rose";
+      rose.style.left = Math.random() * window.innerWidth + "px";
+      document.body.appendChild(rose);
+      setTimeout(() => rose.remove(), 5000);
     }
-
-    setInterval(createFlower, 800);
+    setInterval(createRose, 1000);
   </script>
 </body>
 </html>
