@@ -19,22 +19,9 @@
       background-size: contain;
       background-attachment: fixed;
       background-color: black;
-      overflow-x: hidden;
-    }
-
-    canvas#roseCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
     }
 
     .overlay {
-      position: relative;
-      z-index: 2;
       background-color: rgba(0, 0, 0, 0.6);
       padding: 2rem;
       margin: 4rem auto;
@@ -82,7 +69,7 @@
       width: 25px;
       height: 25px;
       pointer-events: none;
-      z-index: 99;
+      z-index: 20;
       animation: butterfly-fly 4s ease-out forwards;
       transition: opacity 1s ease-out;
     }
@@ -103,12 +90,50 @@
       margin-bottom: 2rem;
       color: #fff0f5;
     }
+
+    #musicButton {
+      width: 60px;
+      height: 60px;
+      border: none;
+      border-radius: 50%;
+      background: #e63946;
+      color: white;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin: 0 auto 2rem;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      transition: background-color 0.3s ease;
+    }
+
+    #musicButton:hover {
+      background-color: #d62828;
+    }
+
+    #confettiButton {
+      background: #e63946;
+      border: none;
+      color: white;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-bottom: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    #confettiButton:hover {
+      background-color: #d62828;
+    }
+
+    audio {
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <!-- Gül yağmuru canvas -->
-  <canvas id="roseCanvas"></canvas>
-
   <div class="overlay">
     <div id="countdown"></div>
     <h1>Zeynebim'e 💐</h1>
@@ -122,31 +147,36 @@ Renklerin kadar güzelsin, gülüşün kadar huzurlu. 🌸
 
     <div class="gallery">
       <img src="1.jpg" alt="Zeynep Foto 1" />
-      <img src="2.jpg" alt="Zeynep Foto 2" />
       <img src="3.jpg" alt="Zeynep Foto 3" />
     </div>
+
+    <button id="confettiButton">🌷 Kalbim Seninle 💖</button>
+    <button id="musicButton">❤️</button>
   </div>
 
-  <!-- Geri Sayım -->
-  <script>
-    function updateCountdown() {
-      const now = new Date();
-      let target = new Date(now.getFullYear(), 10, 24); // Kasım
-      if (now > target) target = new Date(now.getFullYear() + 1, 10, 24);
-      const diff = target - now;
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-      document.getElementById("countdown").textContent =
-        `🎉 Zeynebim'in doğum gününe ${days} gün ${hours} saat ${minutes} dakika ${seconds} saniye kaldı!`;
-    }
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-  </script>
+  <audio id="music" playsinline>
+    <source src="music.mp3" type="audio/mpeg" />
+    Tarayıcınız bu ses öğesini desteklemiyor.
+  </audio>
 
-  <!-- Kelebek efekti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
   <script>
+    document.getElementById('musicButton').addEventListener('click', () => {
+      const music = document.getElementById('music');
+      if (music.paused) {
+        music.play();
+        document.getElementById('musicButton').textContent = '🔇';
+      } else {
+        music.pause();
+        document.getElementById('musicButton').textContent = '❤️';
+      }
+    });
+
+    document.getElementById('confettiButton').addEventListener('click', () => {
+      confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } });
+    });
+
     document.querySelectorAll('.gallery img').forEach(img => {
       img.addEventListener('click', () => {
         const rect = img.getBoundingClientRect();
@@ -167,59 +197,21 @@ Renklerin kadar güzelsin, gülüşün kadar huzurlu. 🌸
         }
       });
     });
-  </script>
 
-  <!-- Gül yağmuru efekti -->
-  <script>
-    const roseCanvas = document.getElementById("roseCanvas");
-    const roseCtx = roseCanvas.getContext("2d");
-    const roses = [];
-    const roseImg = new Image();
-    roseImg.src = "rose.png"; // Saydam arkaplanlı bir gül PNG'si
-
-    function resizeCanvas() {
-      roseCanvas.width = window.innerWidth;
-      roseCanvas.height = window.innerHeight;
+    function updateCountdown() {
+      const now = new Date();
+      let target = new Date(now.getFullYear(), 10, 24);
+      if (now > target) target = new Date(now.getFullYear() + 1, 10, 24);
+      const diff = target - now;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      document.getElementById("countdown").textContent =
+        `🎉 Zeynebim'in doğum gününe ${days} gün ${hours} saat ${minutes} dakika ${seconds} saniye kaldı!`;
     }
-
-    function createRose() {
-      return {
-        x: Math.random() * roseCanvas.width,
-        y: -50,
-        speed: 1 + Math.random() * 1.5,
-        size: 20 + Math.random() * 25,
-        angle: Math.random() * Math.PI
-      };
-    }
-
-    function drawRoses() {
-      roseCtx.clearRect(0, 0, roseCanvas.width, roseCanvas.height);
-      for (const rose of roses) {
-        rose.y += rose.speed;
-        roseCtx.save();
-        roseCtx.translate(rose.x, rose.y);
-        roseCtx.rotate(rose.angle);
-        roseCtx.drawImage(roseImg, -rose.size / 2, -rose.size / 2, rose.size, rose.size);
-        roseCtx.restore();
-      }
-
-      for (let i = roses.length - 1; i >= 0; i--) {
-        if (roses[i].y > roseCanvas.height + 50) {
-          roses.splice(i, 1);
-        }
-      }
-
-      requestAnimationFrame(drawRoses);
-    }
-
-    function addRoses() {
-      roses.push(createRose());
-    }
-
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-    setInterval(addRoses, 300);
-    drawRoses();
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
   </script>
 </body>
 </html>
