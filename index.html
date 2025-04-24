@@ -12,8 +12,8 @@
       font-family: 'Georgia', serif;
       background-image: url('background.jpg');
       background-repeat: no-repeat;
-      background-position: center center;
       background-size: cover;
+      background-position: top center;
       background-attachment: fixed;
       color: white;
       text-align: center;
@@ -206,7 +206,7 @@ Renklerin kadar güzelsin, gülüşün kadar huzurlu. 🌸
       confetti({ particleCount: 150, spread: 120, origin: { y: 0.6 } });
     });
 
-    // Kelebek efekti
+    // Kelebek efekti (resim kenarlarından çıkış)
     document.querySelectorAll(".gallery img").forEach((img) => {
       img.addEventListener("click", () => {
         const rect = img.getBoundingClientRect();
@@ -214,10 +214,16 @@ Renklerin kadar güzelsin, gülüşün kadar huzurlu. 🌸
           const butterfly = document.createElement("img");
           butterfly.src = "butterfly.png";
           butterfly.className = "butterfly";
-          butterfly.style.left = `${rect.left + rect.width * Math.random()}px`;
-          butterfly.style.top = `${rect.top + rect.height * Math.random()}px`;
+
+          // Kenarlardan rastgele çıkış noktası
+          const edgeX = Math.random() < 0.5 ? rect.left : rect.right;
+          const edgeY = rect.top + Math.random() * rect.height;
+          butterfly.style.left = `${edgeX}px`;
+          butterfly.style.top = `${edgeY}px`;
+
           butterfly.style.setProperty("--x", Math.random());
           butterfly.style.setProperty("--y", Math.random());
+
           document.body.appendChild(butterfly);
           setTimeout(() => butterfly.remove(), 4000);
         }
