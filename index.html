@@ -12,12 +12,18 @@
       font-family: 'Georgia', serif;
       background-image: url('background.jpg');
       background-repeat: no-repeat;
-      background-size: contain;
+      background-size: cover;
       background-position: center center;
       background-attachment: fixed;
       color: white;
       text-align: center;
       overflow-x: hidden;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        background-position: center top;
+      }
     }
 
     .overlay {
@@ -51,8 +57,8 @@
     }
 
     .gallery img {
-      width: calc(50% - 1rem);
-      max-width: 300px;
+      width: 100%;
+      max-width: 360px;
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
       transition: transform 0.3s ease;
@@ -68,9 +74,8 @@
       width: 30px;
       height: 30px;
       pointer-events: none;
-      z-index: 100;
+      z-index: 50;
       animation: butterfly-fly 6s ease-in-out forwards;
-      transition: opacity 0.5s ease-out;
     }
 
     @keyframes butterfly-fly {
@@ -80,18 +85,19 @@
       }
       100% {
         opacity: 0;
-        transform: translateY(-200px) translateX(100px) rotate(720deg) scale(0.5);
+        transform: translateY(-300px) translateX(100px) rotate(720deg) scale(0.5);
       }
     }
 
     .rose {
       position: fixed;
       top: -50px;
-      width: 30px;
-      height: 30px;
+      width: 25px;
+      height: 25px;
+      opacity: 0.6;
       pointer-events: none;
       z-index: 10;
-      animation: fall 7s linear forwards;
+      animation: fall 8s linear forwards;
     }
 
     @keyframes fall {
@@ -203,14 +209,19 @@ Renklerin kadar güzelsin, baktım gülüşünden güzel şiir olur, sevdim gitt
     document.querySelectorAll(".gallery img").forEach((img) => {
       img.addEventListener("click", () => {
         const rect = img.getBoundingClientRect();
-        for (let i = 0; i < 10; i++) {
+        const positions = [
+          [rect.left + rect.width / 2, rect.top], // üst
+          [rect.left + rect.width / 2, rect.bottom], // alt
+          [rect.left, rect.top + rect.height / 2], // sol
+          [rect.right, rect.top + rect.height / 2] // sağ
+        ];
+        for (let i = 0; i < 12; i++) {
           const butterfly = document.createElement("img");
           butterfly.src = "butterfly.png";
           butterfly.className = "butterfly";
-          const edgeX = Math.random() < 0.5 ? rect.left : rect.right;
-          const edgeY = rect.top + Math.random() * rect.height;
-          butterfly.style.left = `${edgeX}px`;
-          butterfly.style.top = `${edgeY}px`;
+          const [x, y] = positions[Math.floor(Math.random() * positions.length)];
+          butterfly.style.left = `${x}px`;
+          butterfly.style.top = `${y}px`;
           document.body.appendChild(butterfly);
           setTimeout(() => butterfly.remove(), 6000);
         }
@@ -223,9 +234,9 @@ Renklerin kadar güzelsin, baktım gülüşünden güzel şiir olur, sevdim gitt
       rose.className = "rose";
       rose.style.left = Math.random() * window.innerWidth + "px";
       document.body.appendChild(rose);
-      setTimeout(() => rose.remove(), 7000);
+      setTimeout(() => rose.remove(), 8000);
     }
-    setInterval(createRose, 1200);
+    setInterval(createRose, 1400);
   </script>
 </body>
 </html>
