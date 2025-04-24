@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#000000" />
   <title>Zeynebim'e Doğum Günü</title>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
   <style>
@@ -11,14 +10,13 @@
       margin: 0;
       padding: 0;
       font-family: 'Georgia', serif;
-      color: white;
-      text-align: center;
       background-image: url('background.jpg');
       background-repeat: no-repeat;
       background-position: center center;
       background-size: cover;
       background-attachment: fixed;
-      background-color: black;
+      color: white;
+      text-align: center;
       overflow-x: hidden;
     }
 
@@ -29,14 +27,12 @@
       border-radius: 20px;
       width: 90%;
       max-width: 800px;
-      z-index: 1;
-      position: relative;
     }
 
     h1 {
       font-size: 2.8rem;
-      margin-bottom: 1rem;
       font-family: 'Dancing Script', cursive;
+      margin-bottom: 1rem;
     }
 
     .message {
@@ -67,58 +63,39 @@
       transform: scale(1.05);
     }
 
-    #musicButton {
-      width: 60px;
-      height: 60px;
-      border: none;
-      border-radius: 50%;
-      background: #c78fa2;
-      color: white;
-      font-size: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      margin: 0 auto 2rem;
-      box-shadow: 0 0 15px rgba(0,0,0,0.4);
-      transition: background-color 0.3s ease;
-    }
-
-    #musicButton:hover {
-      background-color: #a76880;
-    }
-
-    #laleButton {
-      background: #e63946;
-      border: none;
-      color: white;
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-      border-radius: 50px;
-      cursor: pointer;
-      margin-bottom: 1rem;
-      transition: background-color 0.3s ease;
-    }
-
-    #laleButton:hover {
-      background-color: #d62828;
-    }
-
-    .petal {
+    .butterfly {
       position: fixed;
-      width: 40px;
-      height: auto;
+      width: 30px;
+      height: 30px;
       pointer-events: none;
-      z-index: 0;
-      animation: fall 6s linear forwards;
+      z-index: 100;
+      animation: butterfly-fly 4s ease-out forwards;
+      transition: opacity 0.5s ease-out;
+    }
+
+    @keyframes butterfly-fly {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-200px) rotate(360deg) scale(0.5);
+      }
+    }
+
+    .rose {
+      position: fixed;
+      top: -50px;
+      width: 30px;
+      height: 30px;
+      pointer-events: none;
+      z-index: 10;
+      animation: fall 5s linear forwards;
     }
 
     @keyframes fall {
-      0% {
-        transform: translateY(-50px) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
+      to {
         transform: translateY(100vh) rotate(360deg);
         opacity: 0;
       }
@@ -128,6 +105,43 @@
       font-size: 1.4rem;
       margin-bottom: 2rem;
       color: #fff0f5;
+    }
+
+    #musicButton {
+      width: 60px;
+      height: 60px;
+      border: none;
+      border-radius: 50%;
+      background: #ff4d6d;
+      color: white;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin: 1rem auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      transition: background-color 0.3s ease;
+    }
+
+    #musicButton:hover {
+      background-color: #e03e56;
+    }
+
+    #confettiButton {
+      background: #f06292;
+      border: none;
+      color: white;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    #confettiButton:hover {
+      background-color: #ec407a;
     }
   </style>
 </head>
@@ -145,35 +159,21 @@ Renklerin kadar güzelsin, gülüşün kadar huzurlu. 🌸
 
     <div class="gallery">
       <img src="1.jpg" alt="Zeynep Foto 1" />
-      <img src="3.jpg" alt="Zeynep Foto 2" />
+      <img src="3.jpg" alt="Zeynep Foto 3" />
     </div>
 
-    <button id="laleButton">🌷 Kalbim seninle 💖</button>
     <button id="musicButton">❤️</button>
+    <button id="confettiButton">🌷 Kalbim seninle</button>
   </div>
 
   <audio id="music" playsinline>
     <source src="music.mp3" type="audio/mpeg" />
-    Tarayıcınız bu ses öğesini desteklemiyor.
   </audio>
 
-  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
   <script>
-    document.getElementById('musicButton').addEventListener('click', () => {
-      const music = document.getElementById('music');
-      if (music.paused) {
-        music.play();
-        document.getElementById('musicButton').textContent = '🔇';
-      } else {
-        music.pause();
-        document.getElementById('musicButton').textContent = '❤️';
-      }
-    });
-
-    document.getElementById('laleButton').addEventListener('click', () => {
-      confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } });
-    });
-
+    // Geri sayım
     function updateCountdown() {
       const now = new Date();
       let target = new Date(now.getFullYear(), 10, 24);
@@ -188,21 +188,52 @@ Renklerin kadar güzelsin, gülüşün kadar huzurlu. 🌸
     }
     updateCountdown();
     setInterval(updateCountdown, 1000);
-  </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    // Müzik
+    document.getElementById("musicButton").addEventListener("click", () => {
+      const music = document.getElementById("music");
+      if (music.paused) {
+        music.play();
+        document.getElementById("musicButton").textContent = "🔇";
+      } else {
+        music.pause();
+        document.getElementById("musicButton").textContent = "❤️";
+      }
+    });
 
-  <!-- Yaprak Animasyonu -->
-  <script>
-    function createPetal() {
-      const petal = document.createElement('img');
-      petal.src = 'rosepetal.png'; // Gül yaprağı PNG dosyası
-      petal.className = 'petal';
-      petal.style.left = Math.random() * window.innerWidth + 'px';
-      document.body.appendChild(petal);
-      setTimeout(() => petal.remove(), 6000);
+    // Konfeti
+    document.getElementById("confettiButton").addEventListener("click", () => {
+      confetti({ particleCount: 150, spread: 120, origin: { y: 0.6 } });
+    });
+
+    // Kelebek efekti
+    document.querySelectorAll(".gallery img").forEach((img) => {
+      img.addEventListener("click", () => {
+        const rect = img.getBoundingClientRect();
+        for (let i = 0; i < 10; i++) {
+          const butterfly = document.createElement("img");
+          butterfly.src = "butterfly.png";
+          butterfly.className = "butterfly";
+          butterfly.style.left = `${rect.left + rect.width * Math.random()}px`;
+          butterfly.style.top = `${rect.top + rect.height * Math.random()}px`;
+          butterfly.style.setProperty("--x", Math.random());
+          butterfly.style.setProperty("--y", Math.random());
+          document.body.appendChild(butterfly);
+          setTimeout(() => butterfly.remove(), 4000);
+        }
+      });
+    });
+
+    // Gül yaprakları
+    function createRose() {
+      const rose = document.createElement("img");
+      rose.src = "rose.png";
+      rose.className = "rose";
+      rose.style.left = Math.random() * window.innerWidth + "px";
+      document.body.appendChild(rose);
+      setTimeout(() => rose.remove(), 5000);
     }
-    setInterval(createPetal, 700);
+    setInterval(createRose, 1000);
   </script>
 </body>
 </html>
