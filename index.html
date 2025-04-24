@@ -12,8 +12,8 @@
       font-family: 'Georgia', serif;
       background-image: url('background.jpg');
       background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center center;
+      background-size: contain;
+      background-position: center top;
       background-attachment: fixed;
       color: white;
       text-align: center;
@@ -21,8 +21,15 @@
     }
 
     @media (max-width: 768px) {
-      body {
-        background-position: center top;
+      .gallery {
+        flex-wrap: nowrap;
+        flex-direction: row;
+        overflow-x: auto;
+      }
+      .gallery img {
+        flex-shrink: 0;
+        width: auto;
+        height: 300px;
       }
     }
 
@@ -209,19 +216,12 @@ Renklerin kadar güzelsin, baktım gülüşünden güzel şiir olur, sevdim gitt
     document.querySelectorAll(".gallery img").forEach((img) => {
       img.addEventListener("click", () => {
         const rect = img.getBoundingClientRect();
-        const positions = [
-          [rect.left + rect.width / 2, rect.top], // üst
-          [rect.left + rect.width / 2, rect.bottom], // alt
-          [rect.left, rect.top + rect.height / 2], // sol
-          [rect.right, rect.top + rect.height / 2] // sağ
-        ];
         for (let i = 0; i < 12; i++) {
           const butterfly = document.createElement("img");
           butterfly.src = "butterfly.png";
           butterfly.className = "butterfly";
-          const [x, y] = positions[Math.floor(Math.random() * positions.length)];
-          butterfly.style.left = `${x}px`;
-          butterfly.style.top = `${y}px`;
+          butterfly.style.left = `${Math.random() * window.innerWidth}px`;
+          butterfly.style.top = `${Math.random() * window.innerHeight}px`;
           document.body.appendChild(butterfly);
           setTimeout(() => butterfly.remove(), 6000);
         }
