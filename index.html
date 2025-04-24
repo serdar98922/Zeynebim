@@ -21,11 +21,16 @@
     }
 
     @media (max-width: 768px) {
-      .gallery {
-        flex-wrap: nowrap;
-        flex-direction: row;
-        overflow-x: auto;
-      }
+  .gallery {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .gallery img {
+    width: calc(50% - 1rem);
+    height: auto;
+  }
+}
       .gallery img {
         flex-shrink: 0;
         width: auto;
