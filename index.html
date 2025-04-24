@@ -12,8 +12,8 @@
       font-family: 'Georgia', serif;
       background-image: url('background.jpg');
       background-repeat: no-repeat;
-      background-size: cover;
-      background-position: top center;
+      background-size: contain;
+      background-position: center center;
       background-attachment: fixed;
       color: white;
       text-align: center;
@@ -69,18 +69,18 @@
       height: 30px;
       pointer-events: none;
       z-index: 100;
-      animation: butterfly-fly 4s ease-out forwards;
+      animation: butterfly-fly 6s ease-in-out forwards;
       transition: opacity 0.5s ease-out;
     }
 
     @keyframes butterfly-fly {
       0% {
         opacity: 1;
-        transform: scale(1);
+        transform: translate(0, 0) scale(1);
       }
       100% {
         opacity: 0;
-        transform: translateY(-200px) rotate(360deg) scale(0.5);
+        transform: translateY(-200px) translateX(100px) rotate(720deg) scale(0.5);
       }
     }
 
@@ -91,7 +91,7 @@
       height: 30px;
       pointer-events: none;
       z-index: 10;
-      animation: fall 5s linear forwards;
+      animation: fall 7s linear forwards;
     }
 
     @keyframes fall {
@@ -151,10 +151,7 @@
     <h1>Zeynebim'e 💐</h1>
     <p class="message">
 Senin gibi birini tanıdığım için çok mutluyum…
-Renklerin kadar güzelsin, gülüşün kadar huzurlu. 🌸
-
-İyi ki doğdun Zeynebim,
-İyi ki varsın 💖
+Renklerin kadar güzelsin, baktım gülüşünden güzel şiir olur, sevdim gitti 💖
     </p>
 
     <div class="gallery">
@@ -173,7 +170,6 @@ Renklerin kadar güzelsin, gülüşün kadar huzurlu. 🌸
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
   <script>
-    // Geri sayım
     function updateCountdown() {
       const now = new Date();
       let target = new Date(now.getFullYear(), 10, 24);
@@ -189,7 +185,6 @@ Renklerin kadar güzelsin, gülüşün kadar huzurlu. 🌸
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
-    // Müzik
     document.getElementById("musicButton").addEventListener("click", () => {
       const music = document.getElementById("music");
       if (music.paused) {
@@ -201,12 +196,10 @@ Renklerin kadar güzelsin, gülüşün kadar huzurlu. 🌸
       }
     });
 
-    // Konfeti
     document.getElementById("confettiButton").addEventListener("click", () => {
       confetti({ particleCount: 150, spread: 120, origin: { y: 0.6 } });
     });
 
-    // Kelebek efekti (resim kenarlarından çıkış)
     document.querySelectorAll(".gallery img").forEach((img) => {
       img.addEventListener("click", () => {
         const rect = img.getBoundingClientRect();
@@ -214,32 +207,25 @@ Renklerin kadar güzelsin, gülüşün kadar huzurlu. 🌸
           const butterfly = document.createElement("img");
           butterfly.src = "butterfly.png";
           butterfly.className = "butterfly";
-
-          // Kenarlardan rastgele çıkış noktası
           const edgeX = Math.random() < 0.5 ? rect.left : rect.right;
           const edgeY = rect.top + Math.random() * rect.height;
           butterfly.style.left = `${edgeX}px`;
           butterfly.style.top = `${edgeY}px`;
-
-          butterfly.style.setProperty("--x", Math.random());
-          butterfly.style.setProperty("--y", Math.random());
-
           document.body.appendChild(butterfly);
-          setTimeout(() => butterfly.remove(), 4000);
+          setTimeout(() => butterfly.remove(), 6000);
         }
       });
     });
 
-    // Gül yaprakları
     function createRose() {
       const rose = document.createElement("img");
       rose.src = "rose.png";
       rose.className = "rose";
       rose.style.left = Math.random() * window.innerWidth + "px";
       document.body.appendChild(rose);
-      setTimeout(() => rose.remove(), 5000);
+      setTimeout(() => rose.remove(), 7000);
     }
-    setInterval(createRose, 1000);
+    setInterval(createRose, 1200);
   </script>
 </body>
 </html>
