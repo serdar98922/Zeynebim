@@ -1,41 +1,16 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zeynebim'e Doğum Günü</title>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-  <style>
+<style>
     body {
       margin: 0;
       padding: 0;
       font-family: 'Georgia', serif;
       background-image: url('background.jpg');
       background-repeat: no-repeat;
-      background-size: contain;
-      background-position: center top;
+      background-size: cover;
+      background-position: center center;
       background-attachment: fixed;
       color: white;
       text-align: center;
       overflow-x: hidden;
-    }
-
-    @media (max-width: 768px) {
-  .gallery {
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-  }
-  .gallery img {
-    width: calc(50% - 1rem);
-    height: auto;
-  }
-}
-      .gallery img {
-        flex-shrink: 0;
-        width: auto;
-        height: 300px;
-      }
     }
 
     .overlay {
@@ -69,8 +44,8 @@
     }
 
     .gallery img {
-      width: 100%;
-      max-width: 360px;
+      width: calc(50% - 1rem);
+      max-width: 300px;
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
       transition: transform 0.3s ease;
@@ -162,86 +137,3 @@
       background-color: #ec407a;
     }
   </style>
-</head>
-<body>
-  <div class="overlay">
-    <div id="countdown"></div>
-    <h1>Zeynebim'e 💐</h1>
-    <p class="message">
-Senin gibi birini tanıdığım için çok mutluyum…
-Renklerin kadar güzelsin, baktım gülüşünden güzel şiir olur, sevdim gitti 💖
-    </p>
-
-    <div class="gallery">
-      <img src="1.jpg" alt="Zeynep Foto 1" />
-      <img src="3.jpg" alt="Zeynep Foto 3" />
-    </div>
-
-    <button id="musicButton">❤️</button>
-    <button id="confettiButton">🌷 Kalbim seninle</button>
-  </div>
-
-  <audio id="music" playsinline>
-    <source src="music.mp3" type="audio/mpeg" />
-  </audio>
-
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-
-  <script>
-    function updateCountdown() {
-      const now = new Date();
-      let target = new Date(now.getFullYear(), 10, 24);
-      if (now > target) target = new Date(now.getFullYear() + 1, 10, 24);
-      const diff = target - now;
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-      document.getElementById("countdown").textContent =
-        `🎉 Zeynebim'in doğum gününe ${days} gün ${hours} saat ${minutes} dakika ${seconds} saniye kaldı!`;
-    }
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-
-    document.getElementById("musicButton").addEventListener("click", () => {
-      const music = document.getElementById("music");
-      if (music.paused) {
-        music.play();
-        document.getElementById("musicButton").textContent = "🔇";
-      } else {
-        music.pause();
-        document.getElementById("musicButton").textContent = "❤️";
-      }
-    });
-
-    document.getElementById("confettiButton").addEventListener("click", () => {
-      confetti({ particleCount: 150, spread: 120, origin: { y: 0.6 } });
-    });
-
-    document.querySelectorAll(".gallery img").forEach((img) => {
-      img.addEventListener("click", () => {
-        const rect = img.getBoundingClientRect();
-        for (let i = 0; i < 12; i++) {
-          const butterfly = document.createElement("img");
-          butterfly.src = "butterfly.png";
-          butterfly.className = "butterfly";
-          butterfly.style.left = `${Math.random() * window.innerWidth}px`;
-          butterfly.style.top = `${Math.random() * window.innerHeight}px`;
-          document.body.appendChild(butterfly);
-          setTimeout(() => butterfly.remove(), 6000);
-        }
-      });
-    });
-
-    function createRose() {
-      const rose = document.createElement("img");
-      rose.src = "rose.png";
-      rose.className = "rose";
-      rose.style.left = Math.random() * window.innerWidth + "px";
-      document.body.appendChild(rose);
-      setTimeout(() => rose.remove(), 8000);
-    }
-    setInterval(createRose, 1400);
-  </script>
-</body>
-</html>
