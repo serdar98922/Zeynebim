@@ -1,139 +1,139 @@
 <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Georgia', serif;
-      background-image: url('background.jpg');
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center center;
-      background-attachment: fixed;
-      color: white;
-      text-align: center;
-      overflow-x: hidden;
-    }
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Georgia', serif;
+    background-image: url('background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    color: white;
+    text-align: center;
+    overflow-x: hidden;
+  }
 
-    .overlay {
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 2rem;
-      margin: 4rem auto;
-      border-radius: 20px;
-      width: 90%;
-      max-width: 800px;
-    }
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 2rem;
+    margin: 4rem auto;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 800px;
+  }
 
-    h1 {
-      font-size: 2.8rem;
-      font-family: 'Dancing Script', cursive;
-      margin-bottom: 1rem;
-    }
+  h1 {
+    font-size: 2.8rem;
+    font-family: 'Dancing Script', cursive;
+    margin-bottom: 1rem;
+  }
 
-    .message {
-      font-size: 1.2rem;
-      line-height: 1.8;
-      white-space: pre-wrap;
-      margin-bottom: 2rem;
-    }
+  .message {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    margin-bottom: 2rem;
+  }
 
-    .gallery {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
-    }
+  .gallery {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
 
-    .gallery img {
-      width: calc(50% - 1rem);
-      max-width: 300px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
+  .gallery img {
+    width: calc(50% - 1rem);
+    max-width: 300px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
 
-    .gallery img:hover {
-      transform: scale(1.05);
-    }
+  .gallery img:hover {
+    transform: scale(1.05);
+  }
 
-    .butterfly {
-      position: fixed;
-      width: 30px;
-      height: 30px;
-      pointer-events: none;
-      z-index: 50;
-      animation: butterfly-fly 6s ease-in-out forwards;
-    }
+  .butterfly {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    pointer-events: none;
+    z-index: 50;
+    animation: butterfly-fly 6s ease-in-out forwards;
+  }
 
-    @keyframes butterfly-fly {
-      0% {
-        opacity: 1;
-        transform: translate(0, 0) scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(-300px) translateX(100px) rotate(720deg) scale(0.5);
-      }
+  @keyframes butterfly-fly {
+    0% {
+      opacity: 1;
+      transform: translate(0, 0) scale(1);
     }
+    100% {
+      opacity: 0;
+      transform: translateY(-300px) translateX(100px) rotate(720deg) scale(0.5);
+    }
+  }
 
-    .rose {
-      position: fixed;
-      top: -50px;
-      width: 25px;
-      height: 25px;
-      opacity: 0.6;
-      pointer-events: none;
-      z-index: 10;
-      animation: fall 8s linear forwards;
-    }
+  .rose {
+    position: fixed;
+    top: -50px;
+    width: 25px;
+    height: 25px;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 10;
+    animation: fall 8s linear forwards;
+  }
 
-    @keyframes fall {
-      to {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
-      }
+  @keyframes fall {
+    to {
+      transform: translateY(100vh) rotate(360deg);
+      opacity: 0;
     }
+  }
 
-    #countdown {
-      font-size: 1.4rem;
-      margin-bottom: 2rem;
-      color: #fff0f5;
-    }
+  #countdown {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+    color: #fff0f5;
+  }
 
-    #musicButton {
-      width: 60px;
-      height: 60px;
-      border: none;
-      border-radius: 50%;
-      background: #ff4d6d;
-      color: white;
-      font-size: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      margin: 1rem auto;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
-      transition: background-color 0.3s ease;
-    }
+  #musicButton {
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 50%;
+    background: #ff4d6d;
+    color: white;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 1rem auto;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    transition: background-color 0.3s ease;
+  }
 
-    #musicButton:hover {
-      background-color: #e03e56;
-    }
+  #musicButton:hover {
+    background-color: #e03e56;
+  }
 
-    #confettiButton {
-      background: #f06292;
-      border: none;
-      color: white;
-      padding: 1rem 2rem;
-      font-size: 1.1rem;
-      border-radius: 50px;
-      cursor: pointer;
-      margin-top: 1rem;
-      transition: background-color 0.3s ease;
-    }
+  #confettiButton {
+    background: #f06292;
+    border: none;
+    color: white;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+  }
 
-    #confettiButton:hover {
-      background-color: #ec407a;
-    }
-  </style>
+  #confettiButton:hover {
+    background-color: #ec407a;
+  }
+</style>
