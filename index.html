@@ -19,9 +19,22 @@
       background-size: contain;
       background-attachment: fixed;
       background-color: black;
+      overflow-x: hidden;
+    }
+
+    canvas#roseCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
     }
 
     .overlay {
+      position: relative;
+      z-index: 2;
       background-color: rgba(0, 0, 0, 0.6);
       padding: 2rem;
       margin: 4rem auto;
@@ -69,7 +82,7 @@
       width: 25px;
       height: 25px;
       pointer-events: none;
-      z-index: 20;
+      z-index: 99;
       animation: butterfly-fly 4s ease-out forwards;
       transition: opacity 1s ease-out;
     }
@@ -93,6 +106,9 @@
   </style>
 </head>
 <body>
+  <!-- Gül yağmuru canvas -->
+  <canvas id="roseCanvas"></canvas>
+
   <div class="overlay">
     <div id="countdown"></div>
     <h1>Zeynebim'e 💐</h1>
@@ -115,7 +131,7 @@ Renklerin kadar güzelsin, gülüşün kadar huzurlu. 🌸
   <script>
     function updateCountdown() {
       const now = new Date();
-      let target = new Date(now.getFullYear(), 10, 24); // Kasım: 10. ay
+      let target = new Date(now.getFullYear(), 10, 24); // Kasım
       if (now > target) target = new Date(now.getFullYear() + 1, 10, 24);
       const diff = target - now;
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -129,7 +145,7 @@ Renklerin kadar güzelsin, gülüşün kadar huzurlu. 🌸
     setInterval(updateCountdown, 1000);
   </script>
 
-  <!-- Kelebek Efekti -->
+  <!-- Kelebek efekti -->
   <script>
     document.querySelectorAll('.gallery img').forEach(img => {
       img.addEventListener('click', () => {
@@ -151,6 +167,59 @@ Renklerin kadar güzelsin, gülüşün kadar huzurlu. 🌸
         }
       });
     });
+  </script>
+
+  <!-- Gül yağmuru efekti -->
+  <script>
+    const roseCanvas = document.getElementById("roseCanvas");
+    const roseCtx = roseCanvas.getContext("2d");
+    const roses = [];
+    const roseImg = new Image();
+    roseImg.src = "rose.png"; // Saydam arkaplanlı bir gül PNG'si
+
+    function resizeCanvas() {
+      roseCanvas.width = window.innerWidth;
+      roseCanvas.height = window.innerHeight;
+    }
+
+    function createRose() {
+      return {
+        x: Math.random() * roseCanvas.width,
+        y: -50,
+        speed: 1 + Math.random() * 1.5,
+        size: 20 + Math.random() * 25,
+        angle: Math.random() * Math.PI
+      };
+    }
+
+    function drawRoses() {
+      roseCtx.clearRect(0, 0, roseCanvas.width, roseCanvas.height);
+      for (const rose of roses) {
+        rose.y += rose.speed;
+        roseCtx.save();
+        roseCtx.translate(rose.x, rose.y);
+        roseCtx.rotate(rose.angle);
+        roseCtx.drawImage(roseImg, -rose.size / 2, -rose.size / 2, rose.size, rose.size);
+        roseCtx.restore();
+      }
+
+      for (let i = roses.length - 1; i >= 0; i--) {
+        if (roses[i].y > roseCanvas.height + 50) {
+          roses.splice(i, 1);
+        }
+      }
+
+      requestAnimationFrame(drawRoses);
+    }
+
+    function addRoses() {
+      roses.push(createRose());
+    }
+
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+    setInterval(addRoses, 300);
+    drawRoses();
   </script>
 </body>
 </html>
