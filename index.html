@@ -14,13 +14,15 @@
       color: white;
       text-align: center;
       background-image: url('background.jpg');
-      background-size: cover;
       background-repeat: no-repeat;
-      background-position: center;
+      background-position: center center;
+      background-size: contain;
+      background-attachment: fixed;
+      background-color: black;
     }
 
     .overlay {
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgba(0, 0, 0, 0.6);
       padding: 2rem;
       margin: 4rem auto;
       border-radius: 20px;
@@ -109,11 +111,11 @@ Renklerin kadar güzelsin, gülüşün kadar huzurlu. 🌸
     </div>
   </div>
 
-  <!-- Geri sayım -->
+  <!-- Geri Sayım -->
   <script>
     function updateCountdown() {
       const now = new Date();
-      let target = new Date(now.getFullYear(), 10, 24); // Kasım ayı 10. index
+      let target = new Date(now.getFullYear(), 10, 24); // Kasım: 10. ay
       if (now > target) target = new Date(now.getFullYear() + 1, 10, 24);
       const diff = target - now;
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -127,7 +129,7 @@ Renklerin kadar güzelsin, gülüşün kadar huzurlu. 🌸
     setInterval(updateCountdown, 1000);
   </script>
 
-  <!-- Kelebek uçuşu -->
+  <!-- Kelebek Efekti -->
   <script>
     document.querySelectorAll('.gallery img').forEach(img => {
       img.addEventListener('click', () => {
