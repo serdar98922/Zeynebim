@@ -1,139 +1,235 @@
-<style>
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Georgia', serif;
-    background-image: url('background.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    background-attachment: fixed;
-    color: white;
-    text-align: center;
-    overflow-x: hidden;
-  }
-
-  .overlay {
-    background-color: rgba(0, 0, 0, 0.6);
-    padding: 2rem;
-    margin: 4rem auto;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 800px;
-  }
-
-  h1 {
-    font-size: 2.8rem;
-    font-family: 'Dancing Script', cursive;
-    margin-bottom: 1rem;
-  }
-
-  .message {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    white-space: pre-wrap;
-    margin-bottom: 2rem;
-  }
-
-  .gallery {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-    margin-bottom: 2rem;
-  }
-
-  .gallery img {
-    width: calc(50% - 1rem);
-    max-width: 300px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-    transition: transform 0.3s ease;
-    cursor: pointer;
-  }
-
-  .gallery img:hover {
-    transform: scale(1.05);
-  }
-
-  .butterfly {
-    position: fixed;
-    width: 30px;
-    height: 30px;
-    pointer-events: none;
-    z-index: 50;
-    animation: butterfly-fly 6s ease-in-out forwards;
-  }
-
-  @keyframes butterfly-fly {
-    0% {
-      opacity: 1;
-      transform: translate(0, 0) scale(1);
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zeynebim'e Doğum Günü</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Georgia', serif;
+      background-color: black;
+      background-image: url('background.jpg');
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center top;
+      background-attachment: fixed;
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
     }
-    100% {
-      opacity: 0;
-      transform: translateY(-300px) translateX(100px) rotate(720deg) scale(0.5);
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 2rem;
+      margin: 4rem auto;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 800px;
     }
-  }
 
-  .rose {
-    position: fixed;
-    top: -50px;
-    width: 25px;
-    height: 25px;
-    opacity: 0.6;
-    pointer-events: none;
-    z-index: 10;
-    animation: fall 8s linear forwards;
-  }
-
-  @keyframes fall {
-    to {
-      transform: translateY(100vh) rotate(360deg);
-      opacity: 0;
+    h1 {
+      font-size: 2.8rem;
+      font-family: 'Dancing Script', cursive;
+      margin-bottom: 1rem;
     }
-  }
 
-  #countdown {
-    font-size: 1.4rem;
-    margin-bottom: 2rem;
-    color: #fff0f5;
-  }
+    .message {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      margin-bottom: 2rem;
+    }
 
-  #musicButton {
-    width: 60px;
-    height: 60px;
-    border: none;
-    border-radius: 50%;
-    background: #ff4d6d;
-    color: white;
-    font-size: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    margin: 1rem auto;
-    box-shadow: 0 0 15px rgba(0,0,0,0.5);
-    transition: background-color 0.3s ease;
-  }
+    .gallery {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
 
-  #musicButton:hover {
-    background-color: #e03e56;
-  }
+    .gallery img {
+      width: 100%;
+      max-width: 360px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
 
-  #confettiButton {
-    background: #f06292;
-    border: none;
-    color: white;
-    padding: 1rem 2rem;
-    font-size: 1.1rem;
-    border-radius: 50px;
-    cursor: pointer;
-    margin-top: 1rem;
-    transition: background-color 0.3s ease;
-  }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
 
-  #confettiButton:hover {
-    background-color: #ec407a;
-  }
-</style>
+    .butterfly {
+      position: fixed;
+      width: 30px;
+      height: 30px;
+      pointer-events: none;
+      z-index: 100;
+      animation: butterfly-fly 6s ease-in-out forwards;
+      transition: opacity 0.5s ease-out;
+    }
+
+    @keyframes butterfly-fly {
+      0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-200px) translateX(100px) rotate(720deg) scale(0.5);
+      }
+    }
+
+    .rose {
+      position: fixed;
+      top: -50px;
+      width: 30px;
+      height: 30px;
+      pointer-events: none;
+      z-index: 10;
+      animation: fall 7s linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    #countdown {
+      font-size: 1.4rem;
+      margin-bottom: 2rem;
+      color: #fff0f5;
+    }
+
+    #musicButton {
+      width: 60px;
+      height: 60px;
+      border: none;
+      border-radius: 50%;
+      background: #ff4d6d;
+      color: white;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin: 1rem auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      transition: background-color 0.3s ease;
+    }
+
+    #musicButton:hover {
+      background-color: #e03e56;
+    }
+
+    #confettiButton {
+      background: #f06292;
+      border: none;
+      color: white;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    #confettiButton:hover {
+      background-color: #ec407a;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <div id="countdown"></div>
+    <h1>Zeynebim'e 💐</h1>
+    <p class="message">
+Senin gibi birini tanıdığım için çok mutluyum…
+Renklerin kadar güzelsin, gülüşün kadar huzurlu. 🌸
+
+İyi ki doğdun Zeynebim,
+İyi ki varsın 💖
+    </p>
+
+    <div class="gallery">
+      <img src="1.jpg" alt="Zeynep Foto 1" />
+      <img src="3.jpg" alt="Zeynep Foto 3" />
+    </div>
+
+    <button id="musicButton">❤️</button>
+    <button id="confettiButton">🌷 Kalbim seninle</button>
+  </div>
+
+  <audio id="music" playsinline>
+    <source src="music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+  <script>
+    function updateCountdown() {
+      const now = new Date();
+      let target = new Date(now.getFullYear(), 10, 24);
+      if (now > target) target = new Date(now.getFullYear() + 1, 10, 24);
+      const diff = target - now;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      document.getElementById("countdown").textContent =
+        `🎉 Zeynebim'in doğum gününe ${days} gün ${hours} saat ${minutes} dakika ${seconds} saniye kaldı!`;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    document.getElementById("musicButton").addEventListener("click", () => {
+      const music = document.getElementById("music");
+      if (music.paused) {
+        music.play();
+        document.getElementById("musicButton").textContent = "🔇";
+      } else {
+        music.pause();
+        document.getElementById("musicButton").textContent = "❤️";
+      }
+    });
+
+    document.getElementById("confettiButton").addEventListener("click", () => {
+      confetti({ particleCount: 150, spread: 120, origin: { y: 0.6 } });
+    });
+
+    document.querySelectorAll(".gallery img").forEach((img) => {
+      img.addEventListener("click", () => {
+        const rect = img.getBoundingClientRect();
+        for (let i = 0; i < 10; i++) {
+          const butterfly = document.createElement("img");
+          butterfly.src = "butterfly.png";
+          butterfly.className = "butterfly";
+          const edgeX = Math.random() < 0.5 ? rect.left : rect.right;
+          const edgeY = rect.top + Math.random() * rect.height;
+          butterfly.style.left = `${edgeX}px`;
+          butterfly.style.top = `${edgeY}px`;
+          document.body.appendChild(butterfly);
+          setTimeout(() => butterfly.remove(), 6000);
+        }
+      });
+    });
+
+    function createRose() {
+      const rose = document.createElement("img");
+      rose.src = "rose.png";
+      rose.className = "rose";
+      rose.style.left = Math.random() * window.innerWidth + "px";
+      document.body.appendChild(rose);
+      setTimeout(() => rose.remove(), 7000);
+    }
+    setInterval(createRose, 1200);
+  </script>
+</body>
+</html>
