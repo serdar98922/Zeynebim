@@ -1,0 +1,68 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Georgia', serif;
+  color: white;
+  background-image: url('background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-align: center;
+}
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 2rem;
+  margin: 4rem auto;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 800px;
+}
+h1 {
+  font-size: 3rem;
+  color: #ffddf4;
+  margin-bottom: 1rem;
+  font-family: 'Dancing Script', cursive;
+}
+.message {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  margin-bottom: 2rem;
+  color: #ffffff;
+}
+.gallery {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+.gallery img {
+  width: calc(50% - 1rem);
+  max-width: 300px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+  transition: transform 0.3s ease;
+}
+.gallery img:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+#flowerButton {
+  background-color: #ff69b4;
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+#flowerButton:hover {
+  background-color: #ff1493;
+}
+.countdown {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: #ffeef8;
+}
